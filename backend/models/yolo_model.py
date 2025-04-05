@@ -1,8 +1,7 @@
-# models/yolo_model.py
 import cv2
 from ultralytics import YOLO
 
-model = YOLO("yolov8n.pt")  # Load once
+model = YOLO("yolov8n.pt")
 
 def detect_objects_in_video(video_path, frame_skip=30):
     cap = cv2.VideoCapture(video_path)

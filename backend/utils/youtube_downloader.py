@@ -1,19 +1,19 @@
 import yt_dlp
 
-def download_audio(url):
-    """Download audio from a YouTube video and return the audio filename."""
+def download_audio(url, filename="audio.mp3"):
+    """Download audio from a YouTube video and return the fixed filename."""
     ydl_opts = {
         'format': 'bestaudio/best',
+        'outtmpl': 'audio.%(ext)s',
         'postprocessors': [{
             'key': 'FFmpegExtractAudio',
             'preferredcodec': 'mp3',
         }],
-        'outtmpl': '%(title)s.%(ext)s', 
     }
 
     with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=True)
-        filename = f"{info['title']}.mp3"
+        ydl.download([url])
+    
     return filename
 
 def download_video(url, filename="downloaded_video.mp4"):

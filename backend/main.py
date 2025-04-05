@@ -1,27 +1,37 @@
-# main.py
 from utils.youtube_downloader import download_audio, download_video
 from models.whisper_model import transcribe_audio
 from models.yolo_model import detect_objects_in_video
+from summarizer import summarize_text
 
 def process_youtube_video(url):
-    print("Downloading audio...")
+    print("🎧 Downloading audio...")
     audio_file = download_audio(url)
 
-    print("Transcribing...")
+    print("📝 Transcribing audio with Whisper...")
     transcript = transcribe_audio(audio_file)
 
-    print("\nTranscript:\n", transcript[:1000], "...")  # Limit output
+    print("\n===== 🎤 WHISPER TRANSCRIPT =====\n")
+    print(transcript if transcript else "❌ Failed to generate transcript.")
 
-    print("\nDownloading video for object detection...")
+    if transcript:
+        print("\n📄 Summarizing transcript...")
+        summary = summarize_text(transcript)
+        print("\n===== ✂️ SUMMARY =====\n")
+        print(summary)
+
+    print("\n🎥 Downloading video for YOLO object detection...")
     video_file = download_video(url)
 
-    print("Running object detection...")
+    print("🧠 Running object detection with YOLO...")
     detections = detect_objects_in_video(video_file)
 
-    print("\nDetections (sample):")
-    for frame, objects in detections[:5]:  # Show just first few
-        print(f"Frame {frame}: {objects}")
+    print("\n===== 🕵️ YOLO OBJECT DETECTIONS =====\n")
+    if detections:
+        for frame_num, objects in detections[:10]:
+            print(f"Frame {frame_num}: {', '.join(objects) if objects else 'No objects detected'}")
+    else:
+        print("❌ No objects detected or detection failed.")
 
 if __name__ == "__main__":
-    video_url = input("Paste the YouTube video URL: ")
+    video_url = input("📺 Paste the YouTube video URL: ")
     process_youtube_video(video_url)
