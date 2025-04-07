@@ -1,7 +1,7 @@
 from utils.youtube_downloader import download_audio, download_video
 from models.whisper_model import transcribe_audio
 from models.yolo_model import detect_objects_in_video
-from summarizer import summarize_text
+from summarizer import summarize_text 
 
 def process_youtube_video(url):
     print("🎧 Downloading audio...")
@@ -14,7 +14,7 @@ def process_youtube_video(url):
     print(transcript if transcript else "❌ Failed to generate transcript.")
 
     if transcript:
-        print("\n📄 Summarizing transcript...")
+        print("\n📄 Summarizing transcript with BART...")
         summary = summarize_text(transcript)
         print("\n===== ✂️ SUMMARY =====\n")
         print(summary)
