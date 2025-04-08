@@ -1,10 +1,7 @@
 <template>
-  <Header />
-  <main>
-    <!-- Page content here -->
-  </main>
+  <Home />
 </template>
 
 <script setup>
-import Header from './components/Header.vue'
+import Home from './pages/Home.vue'
 </script>

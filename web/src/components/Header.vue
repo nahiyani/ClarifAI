@@ -17,10 +17,6 @@
         </nav>
       </div>
     </header>
-
-    <div class="banner-content">
-      <p>Welcome to our awesome platform!</p>
-    </div>
   </div>
 </template>
 
@@ -45,16 +41,16 @@ export default {
   color: white;
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  min-height: 5vh;
 }
 
 .main-header {
-  padding: 1rem 2rem;
-  background-color: rgba(255, 255, 255, 0.05);
+  padding: 0.5rem 2rem;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
+  height: 3rem;
 }
 
 .main-header.hovered {
@@ -66,6 +62,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  height: 100%;
 }
 
 .site-title {
@@ -78,8 +75,6 @@ export default {
   list-style: none;
   display: flex;
   gap: 1.5rem;
-  margin: 0;
-  padding: 0;
 }
 
 .menu a {
@@ -87,16 +82,10 @@ export default {
   color: white;
   text-decoration: none;
   font-weight: 500;
-  transition: opacity 0.2s;
+  transition: opacity 1s;
 }
 
 .menu a:hover {
   opacity: 0.75;
-}
-
-.banner-content {
-  margin-top: 4rem;
-  font-size: 1.25rem;
-  text-align: center;
 }
 </style>
