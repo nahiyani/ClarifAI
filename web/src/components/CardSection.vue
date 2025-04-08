@@ -35,7 +35,7 @@
   .card-section {
     display: flex;
     justify-content: center;
-    align-items: stretch; /* 👈 Ensure equal height */
+    align-items: stretch;
     gap: 2rem;
     padding: 4rem 2rem;
     opacity: 0;
@@ -60,7 +60,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* 👈 Keep button at bottom */
+    justify-content: space-between;
   }
   
   .card:hover {
