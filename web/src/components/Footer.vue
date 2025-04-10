@@ -2,7 +2,7 @@
     <footer class="footer">
       <div class="footer-content">
         <p class="footer-text">
-          &copy; 2025 ClarifAI. Most rights reserved.
+          &copy; 2025 ClarifAI. Some rights reserved.
         </p>
         <div class="social-icons">
           <a href="https://www.facebook.com" class="social-icon" aria-label="Facebook">
