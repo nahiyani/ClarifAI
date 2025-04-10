@@ -19,6 +19,14 @@
       >
         Copy
       </button>
+      <button 
+        v-if="youtubeUrl"
+        @click="clearInput"
+        class="clear-button"
+        title="Clear input"
+      >
+        &#10005;
+      </button>
     </div>
 
     <div v-if="error" class="error">{{ error }}</div>
@@ -58,7 +66,7 @@ export default {
   methods: {
     processUrl() {
       if (!this.youtubeUrl) {
-        this.error = 'Please enter a YouTube URL.';
+        this.error = 'Please enter a YouTube URL';
         this.videoId = '';
         return;
       }
@@ -73,8 +81,8 @@ export default {
       } else {
         this.videoId = '';
         this.error = containsYouTube
-          ? 'Invalid YouTube URL. Please check and try again.'
-          : 'Please enter a YouTube URL.';
+          ? 'Invalid YouTube URL, please check and try again'
+          : 'Please enter a YouTube URL';
       }
     },
 
@@ -117,6 +125,12 @@ export default {
             console.error("Failed to copy:", err);
           });
       }
+    },
+
+    clearInput() {
+      this.youtubeUrl = '';
+      this.videoId = '';
+      this.error = '';
     }
   }
 }
@@ -130,7 +144,7 @@ html {
 }
 
 .container {
-  max-width: 90%; /* Container width set to 90% */
+  max-width: 90%;
   margin: 0 auto;
   padding: 2rem;
   font-family: 'Montserrat', sans-serif;
@@ -146,7 +160,7 @@ html {
   background: linear-gradient(90deg, hsla(197, 100%, 63%, 1) 0%, hsla(294, 100%, 55%, 1) 100%);
   color: white;
   margin-bottom: 2rem;
-  width: 90%; /* Title width 90% of the container */
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -157,7 +171,7 @@ html {
   align-items: center;
   gap: 0.75rem;
   flex-wrap: wrap;
-  width: 50%; /* Search bar width 50% of the container */
+  width: 50%;
   max-width: 50%;
   margin: 0 auto 2rem auto;
 }
@@ -203,10 +217,40 @@ html {
   padding: 0.75rem 1.25rem;
 }
 
-.error {
+.clear-button {
+  background: none;
+  border: none;
   color: #f87171;
+  font-size: 1.5rem;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  margin-left: 0.5rem;
+}
+
+.clear-button:hover {
+  color: #333;
+}
+
+.error {
+  background-color: #fef2f2; /* Soft red background */
+  color: #e11d48; /* Dark red text color */
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
   margin-bottom: 1.5rem;
   font-weight: 500;
+  font-size: 1rem;
+  max-width: fit-content;
+  margin: 0 auto 1.5rem auto;
+  transition: opacity 0.3s ease;
+}
+
+.error.fade-enter-active, .error.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.error.fade-enter-from, .error.fade-leave-to {
+  opacity: 0;
 }
 
 .copied-popup {
@@ -251,14 +295,14 @@ html {
 }
 
 .video-wrapper {
-  width: 80%; /* Take up the full width of the container */
+  width: 80%;
   position: relative;
   padding-bottom: 45%; /* 16:9 aspect ratio (9 / 16 = 0.5625) */
   height: 0;
   overflow: hidden;
   border-radius: 12px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  margin: 0 auto; /* Optional: center the video */
+  margin: 0 auto;
 }
 
 .video-wrapper iframe {
