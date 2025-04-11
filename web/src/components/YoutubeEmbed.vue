@@ -47,6 +47,15 @@
             allowfullscreen
           ></iframe>
         </div>
+        
+        <div class="action-buttons">
+          <button @click="handleActionButton('transcribe')" class="search-button action-button">
+            Transcribe
+          </button>
+          <button @click="handleActionButton('summarize')" class="search-button action-button">
+            Summarize
+          </button>
+        </div>
       </div>
     </transition>
   </div>
@@ -131,6 +140,23 @@ export default {
       this.youtubeUrl = '';
       this.videoId = '';
       this.error = '';
+    },
+    
+    handleActionButton(action) {
+      const videoId = this.extractVideoId(this.youtubeUrl);
+      
+      if (!videoId) {
+        this.error = 'Invalid YouTube URL, please check and try again';
+        this.videoId = '';
+        return;
+      }
+      
+      const targetUrl = action === 'transcribe' 
+        ? `/transcribe?url=${encodeURIComponent(this.youtubeUrl)}`
+        : `/summarize?url=${encodeURIComponent(this.youtubeUrl)}`;
+        
+      alert(`Redirecting to ${targetUrl}`);
+      
     }
   }
 }
@@ -233,8 +259,8 @@ html {
 }
 
 .error {
-  background-color: #fef2f2; /* Soft red background */
-  color: #e11d48; /* Dark red text color */
+  background-color: #fef2f2; 
+  color: #e11d48; 
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
@@ -291,13 +317,14 @@ html {
 
 .video-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .video-wrapper {
   width: 80%;
   position: relative;
-  padding-bottom: 45%; /* 16:9 aspect ratio (9 / 16 = 0.5625) */
+  padding-bottom: 45%;
   height: 0;
   overflow: hidden;
   border-radius: 12px;
@@ -313,6 +340,17 @@ html {
   height: 100%; 
   border: 0;
   border-radius: 12px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.action-button {
+  min-width: 120px;
 }
 
 .fade-enter-active, .fade-leave-active {

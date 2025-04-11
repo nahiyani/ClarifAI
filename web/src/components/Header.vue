@@ -26,7 +26,7 @@
     </div>
     
     <div 
-      v-if="mobileMenuOpen" 
+      v-if="mobileMenuOpen && isMobileView" 
       class="page-overlay" 
       @click="closeMenu"
     ></div>
@@ -39,7 +39,18 @@ export default {
     return {
       hover: false,
       mobileMenuOpen: false,
+      isMobileView: false,
+      resizeObserver: null
     };
+  },
+  mounted() {
+    
+    this.checkScreenSize();
+    
+    this.resizeObserver = new ResizeObserver(this.checkScreenSize);
+    this.resizeObserver.observe(document.body);
+    
+    window.addEventListener('resize', this.checkScreenSize);
   },
   methods: {
     toggleMenu() {
@@ -53,10 +64,23 @@ export default {
     closeMenu() {
       this.mobileMenuOpen = false;
       document.body.classList.remove('menu-open');
+    },
+    checkScreenSize() {
+      const wasMobileView = this.isMobileView;
+      this.isMobileView = window.innerWidth <= 768;
+      
+      if (wasMobileView && !this.isMobileView && this.mobileMenuOpen) {
+        this.closeMenu();
+      }
     }
   },
   beforeUnmount() {
     document.body.classList.remove('menu-open');
+    
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+    window.removeEventListener('resize', this.checkScreenSize);
   }
 };
 </script>

@@ -63,12 +63,12 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   opacity: 0;
-  transform: translateY(20px); /* Start from below */
+  transform: translateY(20px); 
 }
 
 .card.visible {
   opacity: 1;
-  transform: translateY(0); /* Fade in */
+  transform: translateY(0); 
 }
 
 .card:hover {
@@ -111,7 +111,7 @@ export default {
     max-width: 320px;
     margin-bottom: 2rem;
     opacity: 1;
-    transform: translateY(0); /* Ensure cards are in position when they stack */
+    transform: translateY(0);
   }
 
   .card:nth-child(odd) {
