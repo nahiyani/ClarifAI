@@ -16,7 +16,7 @@ def summarize_captions(captions):
     print(prompt)
     return prompt
 
-def generate_video_summary(video_path, frame_skip=30):
+def generate_video_summary(video_path, frame_skip=150):
     cap = cv2.VideoCapture(video_path)
     frame_count = 0
     visual_captions = []
@@ -40,4 +40,3 @@ def generate_video_summary(video_path, frame_skip=30):
 
     cap.release()
     return summarize_captions(visual_captions)
-

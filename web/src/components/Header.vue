@@ -6,7 +6,7 @@
         @mouseleave="hover = false" 
         :class="{ hovered: hover }">
         <div class="header-content">
-          <h1 class="site-title">ClarifAI</h1>
+        <router-link to="/" class="site-title-link"><h1 class="site-title">ClarifAI</h1></router-link>
           <button class="menu-toggle" :class="{ 'is-open': mobileMenuOpen }" @click="toggleMenu" aria-label="Toggle menu">
             <div class="toggle-icon-container">
               <span :class="{ open: mobileMenuOpen }"></span>
@@ -16,9 +16,9 @@
           </button>
           <nav class="menu" :class="{ open: mobileMenuOpen }">
             <ul>
-              <li><a href="#">Transcribe</a></li>
-              <li><a href="#">Summarize</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><router-link to="/transcribe">Transcribe</router-link></li>
+              <li><router-link to="/summarize">Summarize</router-link></li>
+              <li><router-link to="/contact">Contact</router-link></li>
             </ul>
           </nav>
         </div>
@@ -44,12 +44,9 @@ export default {
     };
   },
   mounted() {
-    
     this.checkScreenSize();
-    
     this.resizeObserver = new ResizeObserver(this.checkScreenSize);
     this.resizeObserver.observe(document.body);
-    
     window.addEventListener('resize', this.checkScreenSize);
   },
   methods: {
@@ -68,7 +65,6 @@ export default {
     checkScreenSize() {
       const wasMobileView = this.isMobileView;
       this.isMobileView = window.innerWidth <= 768;
-      
       if (wasMobileView && !this.isMobileView && this.mobileMenuOpen) {
         this.closeMenu();
       }
@@ -76,7 +72,6 @@ export default {
   },
   beforeUnmount() {
     document.body.classList.remove('menu-open');
-    
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }
@@ -86,6 +81,7 @@ export default {
 </script>
 
 <style scoped>
+/* all your CSS remains unchanged */
 .banner {
   font-family: 'Montserrat', sans-serif;
   background: linear-gradient(
@@ -202,7 +198,8 @@ export default {
   margin: 0;
 }
 
-.menu a {
+.menu a,
+.menu :deep(a) {
   font-size: 0.75rem;
   color: white;
   text-decoration: none;
@@ -210,7 +207,8 @@ export default {
   transition: opacity 1s;
 }
 
-.menu a:hover {
+.menu a:hover,
+.menu :deep(a:hover) {
   opacity: 0.75;
 }
 
@@ -226,6 +224,11 @@ export default {
   margin-top: 0;
 }
 
+.site-title-link {
+  text-decoration: none;
+  color: white;
+}
+
 @media (max-width: 768px) {
   .menu {
     width: 100%;
@@ -234,17 +237,17 @@ export default {
     max-height: 0;
     transition: max-height 0.3s ease-in-out;
   }
-  
+
   .menu.open {
     max-height: 300px;
   }
-  
+
   .menu ul {
     flex-direction: column;
     gap: 1rem;
     margin-top: 1rem;
   }
-  
+
   .menu-toggle {
     display: flex;
   }
