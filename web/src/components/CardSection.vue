@@ -1,7 +1,7 @@
 <template>
   <section ref="cardSection" class="card-section" :class="{ visible: isVisible }">
     <div class="card" v-for="(card, index) in cards" :key="index" :class="{'visible': isVisible}">
-      <p class="description">{{ card.description }}</p>
+      <p class="card-description">{{ card.description }}</p>
       <button class="action-button">{{ card.buttonText }}</button>
     </div>
   </section>
@@ -76,7 +76,7 @@ export default {
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
 }
 
-.description {
+.card-description {
   font-size: 1.2rem;
   margin-bottom: 1.5rem;
   flex-grow: 1;
