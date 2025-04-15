@@ -133,10 +133,8 @@
     if (!hasError) {
       showSuccess.value = true
   
-      // Clear form after submission
       Object.keys(form).forEach(key => form[key] = '')
   
-      // Hide toast after 2 seconds
       setTimeout(() => {
         showSuccess.value = false
       }, 2000)
@@ -257,22 +255,22 @@
     font-size: 1.2rem;
   }
 
-  @keyframes fadeSlide {
-    0% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(-20px);
-    }
-    15% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    85% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    100% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(-10px);
-    }
+  @keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
   }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
 </style>

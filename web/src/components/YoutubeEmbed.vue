@@ -63,7 +63,7 @@
 
 <script>
 export default {
-  name: 'YouTubeVideoFinder',
+  name: 'YoutubeEmbed',
   data() {
     return {
       youtubeUrl: '',
@@ -144,19 +144,25 @@ export default {
     
     handleActionButton(action) {
       const videoId = this.extractVideoId(this.youtubeUrl);
-      
+
       if (!videoId) {
         this.error = 'Invalid YouTube URL, please check and try again';
         this.videoId = '';
         return;
       }
+
+      // Ensure we have the canonical form of the URL
+      const canonicalUrl = `https://www.youtube.com/watch?v=${videoId}`;
       
+      // Store the URL in localStorage before navigation
+      localStorage.setItem('youtube_url', canonicalUrl);
+      
+      // Navigate to the appropriate page
       const targetUrl = action === 'transcribe' 
-        ? `/transcribe?url=${encodeURIComponent(this.youtubeUrl)}`
-        : `/summarize?url=${encodeURIComponent(this.youtubeUrl)}`;
-        
-      alert(`Redirecting to ${targetUrl}`);
-      
+        ? `/transcribe`
+        : `/summarize`;
+
+      window.location.href = targetUrl;
     }
   }
 }
