@@ -81,7 +81,6 @@ export default {
 </script>
 
 <style scoped>
-/* all your CSS remains unchanged */
 .banner {
   font-family: 'Montserrat', sans-serif;
   background: linear-gradient(

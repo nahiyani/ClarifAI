@@ -1,8 +1,15 @@
 <template>
   <section ref="cardSection" class="card-section" :class="{ visible: isVisible }">
-    <div class="card" v-for="(card, index) in cards" :key="index" :class="{'visible': isVisible}">
+    <div
+      class="card"
+      v-for="(card, index) in cards"
+      :key="index"
+      :class="{ visible: isVisible }"
+    >
       <p class="card-description">{{ card.description }}</p>
-      <button class="action-button">{{ card.buttonText }}</button>
+      <button class="action-button" @click="handleClick(index)">
+        {{ card.buttonText }}
+      </button>
     </div>
   </section>
 </template>
@@ -13,11 +20,29 @@ export default {
     return {
       isVisible: false,
       cards: [
-        { description: 'Transcribe YouTube videos, with or without captions present.', buttonText: 'Transcribe' },
-        { description: 'Summarize videos using audio, visual stream or both.', buttonText: 'Try Now' },
-        { description: 'Clarify long content with just one click of a button.', buttonText: 'Get Started' },
+        {
+          description: 'Transcribe YouTube videos, with or without captions present.',
+          buttonText: 'Transcribe',
+        },
+        {
+          description: 'Summarize videos using audio, visual stream or both.',
+          buttonText: 'Try Now',
+        },
+        {
+          description: 'Clarify long content with just one click of a button.',
+          buttonText: 'Get Started',
+        },
       ],
     };
+  },
+  methods: {
+    handleClick(index) {
+      if (index === 0) {
+        this.$router.push('/transcribe');
+      } else {
+        this.$router.push('/summarize');
+      }
+    },
   },
   mounted() {
     const observer = new IntersectionObserver(
@@ -63,12 +88,12 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   opacity: 0;
-  transform: translateY(20px); 
+  transform: translateY(20px);
 }
 
 .card.visible {
   opacity: 1;
-  transform: translateY(0); 
+  transform: translateY(0);
 }
 
 .card:hover {
